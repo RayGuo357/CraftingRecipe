@@ -1,1 +1,6 @@
-"Logic Processor", "1", "Gold"
+"Gold", "0"
+"Redstone", "0"
+"Silicon", "0"
+"Printed Logic Circuit", "1", "Gold", "0"
+"Printed Silicon", "1", "Silicon", "0"
+"Logic Processor", "1", "Printed Logic Ciruit", "1", "Redstone", "1", "Printed Silicon", "0"
