@@ -6,22 +6,57 @@ import java.util.*;
 
 public class Start {
 
+	private static final String COMMA_DELIMITER = ",";
+	
+	public static HashMap<String, Items> fullRecipes = new HashMap<>();
+
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		String csvFile = "/Users/raymondmatthewguo/eclipse-workspace/CraftingRecipe/recipe.csv";
 		
-		ArrayList<Items> test = new ArrayList<>();
-		
 		Scanner scanner = new Scanner(new File(csvFile));
 		
 		while(scanner.hasNextLine()) {
-			test.add(new Items(scanner.nextLine()));
+			Items testMethod = parseItems(scanner.nextLine());
+			fullRecipes.put(testMethod.getName(), testMethod);
 		}
 		
-		for(int i = 0; i < test.size(); i++) {
-			System.out.println(test.get(i).getName());
+		for(Map.Entry<String, Items> entry : fullRecipes.entrySet()) {
+			String key = entry.getKey();
+			Items value = entry.getValue();
+			
+			System.out.println(value.getName());
 		}
 		
+	}
+	
+	public static Items parseItems(String line) {
+		Items result;
+		HashMap<String, Items> requirements = new HashMap<>();
+		HashMap<String, Integer> requirementAmt = new HashMap<>();
+		
+		Scanner scan = new Scanner(line);
+		scan.useDelimiter(COMMA_DELIMITER);
+		String name = scan.next();
+
+		while (true) {
+			String rName = scan.next();
+			if (rName.equals("0") || rName.equals(" 0")) break;
+			
+			int rAmount = scan.nextInt();
+			if(fullRecipes.containsKey(rName)) {
+				requirements.put(rName, fullRecipes.get(rName));
+				requirementAmt.put(rName, rAmount);
+			} else {
+				requirements.put(rName, new Items(rName)); // Maybe not needed
+				System.out.println(rName + ": Probably shouldn't reach this.");
+			}
+			
+		}
+		
+		result = new Items(name, requirements);
+		
+		return result;
 	}
 
 }

@@ -5,13 +5,15 @@ import java.util.*;
 public class Items {
 	
 	private String name;
-	private ArrayList<Items> requirements;
+	private int amount = 0;
+	private HashMap<String, Items> requirements;
+	private HashMap<String, Integer> requirementAmt;
 	
 	public Items(String name) {
 		this.name = name;
 	}
 	
-	public Items(String name, ArrayList<Items> requirements) {
+	public Items(String name, HashMap<String, Items> requirements) {
 		this.name = name;
 		this.requirements = requirements;
 	}
@@ -20,7 +22,12 @@ public class Items {
 		return name;
 	}
 	
-	public ArrayList<Items> getRequirements() {
+	public void addAmount(int x) {
+		amount += x;
+		return;
+	}
+	
+	public HashMap<String, Items> getRequirements() {
 		return requirements;
 	}
 
